@@ -40,103 +40,15 @@
       }
     }
 
-    /* Background floating blobs container */
-    #background-blobs {
+    /* Starfield canvas */
+    #starfield {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none;
       z-index: -1;
-      overflow: hidden;
-      filter: contrast(0.9);
-    }
-
-    /* Each blob */
-    .blob {
-      position: absolute;
-      background: var(--primary-color);
-      opacity: 0.15;
-      border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
-      filter: blur(70px);
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-    }
-
-    /* Individual blob styles and animations */
-    .blob1 {
-      width: 400px;
-      height: 400px;
-      top: 10%;
-      left: 5%;
-      animation: blobMove1 20s infinite alternate;
-      animation-delay: 0s;
-    }
-    .blob2 {
-      width: 350px;
-      height: 350px;
-      top: 50%;
-      left: 60%;
-      background: var(--accent-color);
-      opacity: 0.1;
-      animation: blobMove2 25s infinite alternate;
-      animation-delay: 3s;
-      border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
-    }
-    .blob3 {
-      width: 300px;
-      height: 300px;
-      top: 75%;
-      left: 25%;
-      background: var(--primary-color);
-      opacity: 0.12;
-      animation: blobMove3 30s infinite alternate;
-      animation-delay: 5s;
-      border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
-    }
-
-    /* Blob morphing and moving keyframes */
-    @keyframes blobMove1 {
-      0% {
-        transform: translate(0, 0) scale(1);
-        border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
-      }
-      50% {
-        transform: translate(30px, 20px) scale(1.1);
-        border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
-      }
-      100% {
-        transform: translate(0, 0) scale(1);
-        border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
-      }
-    }
-    @keyframes blobMove2 {
-      0% {
-        transform: translate(0, 0) scale(1);
-        border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
-      }
-      50% {
-        transform: translate(-20px, -30px) scale(1.05);
-        border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
-      }
-      100% {
-        transform: translate(0, 0) scale(1);
-        border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
-      }
-    }
-    @keyframes blobMove3 {
-      0% {
-        transform: translate(0, 0) scale(1);
-        border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
-      }
-      50% {
-        transform: translate(10px, -20px) scale(1.1);
-        border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
-      }
-      100% {
-        transform: translate(0, 0) scale(1);
-        border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
-      }
+      background: var(--background-color);
+      display: block;
     }
 
     /* Cursor circle */
@@ -184,7 +96,7 @@
       margin: auto;
       padding: 40px 20px;
       position: relative;
-      z-index: 1; /* above blobs */
+      z-index: 1; /* above starfield */
     }
 
     h2 {
@@ -280,11 +192,7 @@
   </style>
 </head>
 <body>
-  <div id="background-blobs">
-    <div class="blob blob1"></div>
-    <div class="blob blob2"></div>
-    <div class="blob blob3"></div>
-  </div>
+  <canvas id="starfield"></canvas>
 
   <div id="cursor-circle"></div>
 
@@ -400,6 +308,91 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
+  </script>
+
+  <!-- Starfield Script -->
+  <script>
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let stars = [];
+    const numStars = 120;
+    const maxDistance = 150;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * devicePixelRatio;
+      canvas.height = height * devicePixelRatio;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    class Star {
+      constructor() {
+        this.x = random(0, width);
+        this.y = random(0, height);
+        this.radius = random(0.5, 1.2);
+        this.alpha = random(0.2, 1);
+        this.alphaDirection = Math.random() > 0.5 ? 1 : -1;
+        this.speedAlpha = random(0.002, 0.008);
+      }
+      update() {
+        this.alpha += this.speedAlpha * this.alphaDirection;
+        if (this.alpha <= 0.2) this.alphaDirection = 1;
+        if (this.alpha >= 1) this.alphaDirection = -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < numStars; i++) {
+      stars.push(new Star());
+    }
+
+    function distance(starA, starB) {
+      return Math.sqrt((starA.x - starB.x) ** 2 + (starA.y - starB.y) ** 2);
+    }
+
+    function drawLines() {
+      for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+          const dist = distance(stars[i], stars[j]);
+          if (dist < maxDistance) {
+            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / maxDistance})`;
+            ctx.lineWidth = 0.7;
+            ctx.beginPath();
+            ctx.moveTo(stars[i].x, stars[i].y);
+            ctx.lineTo(stars[j].x, stars[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      stars.forEach(star => {
+        star.update();
+        star.draw();
+      });
+      drawLines();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   </script>
 </body>
 </html>
