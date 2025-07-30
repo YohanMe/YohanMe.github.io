@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Yohan Manoj | Portfolio</title>
 
   <!-- AOS (Animate On Scroll) -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
   <style>
     :root {
@@ -24,13 +24,14 @@
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       color: var(--text-color);
-      background: linear-gradient(to bottom right, #ffffff, #f3f3f3);
+      background: var(--background-color);
       scroll-behavior: smooth;
       position: relative;
       overflow-x: hidden;
       cursor: none;
       opacity: 0;
       animation: fadeIn 1.2s ease forwards;
+      min-height: 100vh;
     }
 
     @keyframes fadeIn {
@@ -39,6 +40,106 @@
       }
     }
 
+    /* Background floating blobs container */
+    #background-blobs {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+      filter: contrast(0.9);
+    }
+
+    /* Each blob */
+    .blob {
+      position: absolute;
+      background: var(--primary-color);
+      opacity: 0.15;
+      border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
+      filter: blur(70px);
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    /* Individual blob styles and animations */
+    .blob1 {
+      width: 400px;
+      height: 400px;
+      top: 10%;
+      left: 5%;
+      animation: blobMove1 20s infinite alternate;
+      animation-delay: 0s;
+    }
+    .blob2 {
+      width: 350px;
+      height: 350px;
+      top: 50%;
+      left: 60%;
+      background: var(--accent-color);
+      opacity: 0.1;
+      animation: blobMove2 25s infinite alternate;
+      animation-delay: 3s;
+      border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
+    }
+    .blob3 {
+      width: 300px;
+      height: 300px;
+      top: 75%;
+      left: 25%;
+      background: var(--primary-color);
+      opacity: 0.12;
+      animation: blobMove3 30s infinite alternate;
+      animation-delay: 5s;
+      border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
+    }
+
+    /* Blob morphing and moving keyframes */
+    @keyframes blobMove1 {
+      0% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
+      }
+      50% {
+        transform: translate(30px, 20px) scale(1.1);
+        border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
+      }
+      100% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
+      }
+    }
+    @keyframes blobMove2 {
+      0% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
+      }
+      50% {
+        transform: translate(-20px, -30px) scale(1.05);
+        border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
+      }
+      100% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 55% 45% 40% 60% / 40% 60% 45% 55%;
+      }
+    }
+    @keyframes blobMove3 {
+      0% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
+      }
+      50% {
+        transform: translate(10px, -20px) scale(1.1);
+        border-radius: 45% 55% 60% 40% / 60% 40% 55% 45%;
+      }
+      100% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 60% 40% 45% 55% / 55% 45% 60% 40%;
+      }
+    }
+
+    /* Cursor circle */
     #cursor-circle {
       position: fixed;
       width: 20px;
@@ -49,12 +150,15 @@
       z-index: 9999;
       transform: translate(-50%, -50%) scale(1);
       transition: transform 0.3s ease, background-color 0.3s ease;
+      mix-blend-mode: difference;
     }
 
+    /* Hover effect on cards and buttons: cursor grows and blends */
     .hover-effect:hover ~ #cursor-circle,
     .hover-effect:hover #cursor-circle {
       transform: scale(2);
       background-color: var(--hover-box-color);
+      mix-blend-mode: normal;
     }
 
     .hero {
@@ -79,6 +183,8 @@
       max-width: 1000px;
       margin: auto;
       padding: 40px 20px;
+      position: relative;
+      z-index: 1; /* above blobs */
     }
 
     h2 {
@@ -109,6 +215,7 @@
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease, background-color 0.3s ease;
+      cursor: none;
     }
 
     .card:hover {
@@ -173,6 +280,12 @@
   </style>
 </head>
 <body>
+  <div id="background-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
   <div id="cursor-circle"></div>
 
   <section class="hero" data-aos="fade">
@@ -262,7 +375,7 @@
       </div>
     </div>
 
-    <!-- Resume -->
+    <!-- Resume & Links -->
     <div class="section" data-aos="fade-up">
       <h2>📄 Resume & Links</h2>
       <a class="button hover-effect" href="resume.pdf" download>Download Resume</a>
