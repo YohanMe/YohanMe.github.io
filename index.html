@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Yohan Manoj | Portfolio</title>
 
   <!-- AOS (Animate On Scroll) -->
@@ -11,13 +11,13 @@
 
   <style>
     :root {
-      --primary-color: #a51c30;
-      --secondary-color: #2e1a1a;
-      --accent-color: #e87c7c;
-      --background-color: #1b0b0b;
-      --text-color: #f0dede;
-      --hover-box-color: #4d1e1e;
-      --button-hover: #e08b8b;
+      --primary-color: #a51c30;      /* Deep red */
+      --secondary-color: #2e1a1a;    /* Dark red/brown background for cards */
+      --accent-color: #e87c7c;       /* Light red/pink for accents */
+      --background-color: #1b0b0b;   /* Very dark red/black background */
+      --text-color: #f0dede;         /* Soft off-white for text */
+      --hover-box-color: #4d1e1e;    /* Darker red for hover boxes */
+      --button-hover: #e08b8b;       /* Lighter red for button hover */
     }
 
     body {
@@ -40,15 +40,18 @@
       }
     }
 
-    #threejs-canvas {
+    /* Solar system canvas */
+    #solar-system {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100vw;
       height: 100vh;
       z-index: -1;
+      background: var(--background-color);
+      display: block;
     }
 
+    /* Cursor circle */
     #cursor-circle {
       position: fixed;
       width: 20px;
@@ -62,6 +65,7 @@
       mix-blend-mode: normal;
     }
 
+    /* Cursor grow and blend on hover */
     .hover-effect:hover ~ #cursor-circle,
     .hover-effect:hover #cursor-circle {
       transform: scale(2);
@@ -93,7 +97,7 @@
       margin: auto;
       padding: 40px 20px;
       position: relative;
-      z-index: 1;
+      z-index: 1; /* above background */
     }
 
     h2 {
@@ -129,11 +133,13 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       transition: transform 0.3s ease, background-color 0.3s ease;
       cursor: none;
+      color: var(--text-color);
     }
 
     .card:hover {
       transform: translateY(-5px);
       background-color: var(--hover-box-color);
+      color: var(--text-color);
     }
 
     .skills {
@@ -194,7 +200,8 @@
   </style>
 </head>
 <body>
-  <canvas id="threejs-canvas"></canvas>
+  <canvas id="solar-system"></canvas>
+
   <div id="cursor-circle"></div>
 
   <section class="hero" data-aos="fade">
@@ -203,22 +210,75 @@
   </section>
 
   <div class="container">
+    <!-- Experience -->
     <div class="section" data-aos="fade-up">
       <h2>📌 Experience</h2>
       <div class="grid">
-        <!-- Experience cards -->
-        <!-- ... Paste your cards here (same structure as before) ... -->
+        <div class="card hover-effect">
+          <h3>Data Analyst Intern – First Jewelry Dubai</h3>
+          <p><em>Dec 2023 – Feb 2024</em></p>
+          <ul>
+            <li>Developed a stock code system for inventory management.</li>
+            <li>Maintained accurate, real-time inventory records.</li>
+            <li>Performed data cleaning and trend analysis.</li>
+            <li>Managed labeling for product categorization.</li>
+          </ul>
+        </div>
+        <div class="card hover-effect">
+          <h3>Fintech Intern – MetLife, Inc Dubai</h3>
+          <p><em>Mar 2024 – Sep 2024</em></p>
+          <ul>
+            <li>Built financial algorithms to reduce risk.</li>
+            <li>Created APIs for secure fintech integration.</li>
+            <li>Analyzed economic data for forecasting.</li>
+            <li>Improved fintech UI with cross-team input.</li>
+          </ul>
+        </div>
+        <div class="card hover-effect">
+          <h3>Founder – Financial Literacy Program</h3>
+          <p><em>Oct 2024 – Jan 2025</em></p>
+          <ul>
+            <li>Built a curriculum for high school financial literacy.</li>
+            <li>Led outreach events in Sharjah, UAE.</li>
+          </ul>
+        </div>
+        <div class="card hover-effect">
+          <h3>Organizer – AI for Economics Symposium</h3>
+          <ul>
+            <li>Coordinated speakers and topics on AI in economics.</li>
+            <li>Handled logistics and public discussion events.</li>
+          </ul>
+        </div>
+        <div class="card hover-effect">
+          <h3>Lead Organizer – Virtual Startup Exchange</h3>
+          <ul>
+            <li>Hosted global startup pitching events.</li>
+            <li>Facilitated mentor feedback and collaboration.</li>
+          </ul>
+        </div>
       </div>
     </div>
 
+    <!-- Projects -->
     <div class="section" data-aos="fade-up">
       <h2>💼 Projects</h2>
       <div class="grid">
-        <!-- Project cards -->
-        <!-- ... Paste your projects here ... -->
+        <div class="card hover-effect">
+          <h3>Python Quest</h3>
+          <p>An educational text-based adventure game to teach Python.</p>
+          <p><strong>Tech:</strong> Python, Git, CLI</p>
+          <a href="https://github.com/YohanMe/python-quest" target="_blank">View on GitHub →</a>
+        </div>
+        <div class="card hover-effect">
+          <h3>Budget Tracker</h3>
+          <p>Finance tracking app for students with simple data visualization.</p>
+          <p><strong>Tech:</strong> Python, SQLite, Matplotlib</p>
+          <a href="https://github.com/YohanMe/budget-tracker" target="_blank">View on GitHub →</a>
+        </div>
       </div>
     </div>
 
+    <!-- Skills -->
     <div class="section" data-aos="fade-up">
       <h2>🧠 Skills</h2>
       <div class="skills">
@@ -231,6 +291,7 @@
       </div>
     </div>
 
+    <!-- Resume & Links -->
     <div class="section" data-aos="fade-up">
       <h2>📄 Resume & Links</h2>
       <a class="button hover-effect" href="resume.pdf" download>Download Resume</a>
@@ -242,10 +303,14 @@
     </div>
   </div>
 
+  <!-- AOS Script -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 800, once: false });
+  </script>
 
+  <!-- Cursor Follow Script -->
+  <script>
     const cursor = document.getElementById('cursor-circle');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
@@ -253,76 +318,95 @@
     });
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
+  <!-- Solar System Script -->
   <script>
-    const canvas = document.getElementById('threejs-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0, 200, 400);
-
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.minDistance = 100;
-    controls.maxDistance = 700;
-
-    scene.add(new THREE.AmbientLight(0x888888));
-    const sunLight = new THREE.PointLight(0xffffff, 1.5, 0);
-    scene.add(sunLight);
-
-    const loader = new THREE.TextureLoader();
-    const sunMat = new THREE.MeshBasicMaterial({
-      map: loader.load('https://i.imgur.com/ybLWy3N.jpg')
-    });
-    const sunGeo = new THREE.SphereGeometry(30, 32, 32);
-    const sunMesh = new THREE.Mesh(sunGeo, sunMat);
-    scene.add(sunMesh);
-
+    const canvas = document.getElementById('solar-system');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let centerX, centerY;
     const planets = [
-      { size: 5, dist: 60, speed: 0.02, texture: 'https://i.imgur.com/jWI7xa5.jpg' },
-      { size: 8, dist: 85, speed: 0.015, texture: 'https://i.imgur.com/h3zB4Yy.jpg' },
-      { size: 9, dist: 110, speed: 0.01, texture: 'https://i.imgur.com/2v1wMUk.jpg' },
-      { size: 7, dist: 135, speed: 0.008, texture: 'https://i.imgur.com/zk5SHTy.jpg' },
-      { size: 14, dist: 175, speed: 0.006, texture: 'https://i.imgur.com/vFRuDjM.jpg' },
-      { size: 12, dist: 210, speed: 0.005, texture: 'https://i.imgur.com/HYyXRgf.jpg' },
-      { size: 10, dist: 245, speed: 0.004, texture: 'https://i.imgur.com/nA4Dd6x.jpg' },
-      { size: 10, dist: 280, speed: 0.003, texture: 'https://i.imgur.com/GWjt0JP.jpg' }
+      { name: 'Mercury', radius: 5, distance: 50, speed: 0.04, angle: 0, color: '#bfbfbf' },
+      { name: 'Venus', radius: 8, distance: 80, speed: 0.025, angle: 0, color: '#d4a373' },
+      { name: 'Earth', radius: 9, distance: 110, speed: 0.02, angle: 0, color: '#4a90e2' },
+      { name: 'Mars', radius: 7, distance: 140, speed: 0.015, angle: 0, color: '#d94a3d' },
+      { name: 'Jupiter', radius: 14, distance: 190, speed: 0.01, angle: 0, color: '#c19a6b' },
+      { name: 'Saturn', radius: 12, distance: 230, speed: 0.008, angle: 0, color: '#d2b48c' },
+      { name: 'Uranus', radius: 10, distance: 270, speed: 0.006, angle: 0, color: '#7fffd4' },
+      { name: 'Neptune', radius: 10, distance: 310, speed: 0.005, angle: 0, color: '#4169e1' }
     ];
 
-    const planetMeshes = [];
-    planets.forEach(p => {
-      const mat = new THREE.MeshPhongMaterial({ map: loader.load(p.texture) });
-      const geo = new THREE.SphereGeometry(p.size, 32, 32);
-      const mesh = new THREE.Mesh(geo, mat);
-      scene.add(mesh);
-      planetMeshes.push({ mesh, ...p, angle: 0 });
-    });
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      centerX = width / 2;
+      centerY = height / 2;
+      canvas.width = width * devicePixelRatio;
+      canvas.height = height * devicePixelRatio;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function drawSun() {
+      const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 40);
+      gradient.addColorStop(0, '#ffcc00');
+      gradient.addColorStop(1, '#b36b00');
+      ctx.beginPath();
+      ctx.fillStyle = gradient;
+      ctx.shadowColor = '#ffcc00';
+      ctx.shadowBlur = 20;
+      ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function drawOrbit(distance) {
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(232, 196, 196, 0.2)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([5, 10]);
+      ctx.arc(centerX, centerY, distance, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    function drawPlanet(planet) {
+      const x = centerX + Math.cos(planet.angle) * planet.distance;
+      const y = centerY + Math.sin(planet.angle) * planet.distance;
+
+      // Shadow for glow
+      ctx.shadowColor = planet.color;
+      ctx.shadowBlur = 10;
+
+      ctx.beginPath();
+      ctx.fillStyle = planet.color;
+      ctx.arc(x, y, planet.radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Reset shadow for other drawings
+      ctx.shadowBlur = 0;
+    }
 
     function animate() {
-      requestAnimationFrame(animate);
-      planetMeshes.forEach(p => {
-        p.angle += p.speed;
-        p.mesh.position.set(
-          Math.cos(p.angle) * p.dist,
-          0,
-          Math.sin(p.angle) * p.dist
-        );
+      ctx.clearRect(0, 0, width, height);
+
+      drawSun();
+
+      planets.forEach(planet => {
+        drawOrbit(planet.distance);
       });
-      controls.update();
-      renderer.render(scene, camera);
+
+      planets.forEach(planet => {
+        planet.angle += planet.speed;
+        drawPlanet(planet);
+      });
+
+      requestAnimationFrame(animate);
     }
 
     animate();
-    window.addEventListener('resize', () => {
-      const w = window.innerWidth, h = window.innerHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    });
   </script>
 </body>
 </html>
