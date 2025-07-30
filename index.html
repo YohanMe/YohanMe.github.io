@@ -24,14 +24,21 @@
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       color: var(--text-color);
-      scroll-behavior: smooth;
       background: linear-gradient(to bottom right, #ffffff, #f3f3f3);
+      scroll-behavior: smooth;
       position: relative;
       overflow-x: hidden;
       cursor: none;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
     }
 
-    /* Custom Cursor */
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
     #cursor-circle {
       position: fixed;
       width: 20px;
@@ -41,10 +48,11 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%) scale(1);
-      transition: transform 0.2s ease, background-color 0.2s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
-    .hover-effect:hover ~ #cursor-circle {
+    .hover-effect:hover ~ #cursor-circle,
+    .hover-effect:hover #cursor-circle {
       transform: scale(2);
       background-color: var(--hover-box-color);
     }
@@ -82,10 +90,7 @@
       color: var(--accent-color);
       text-decoration: none;
       transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: #700a09;
+      cursor: none;
     }
 
     .section {
@@ -109,10 +114,6 @@
     .card:hover {
       transform: translateY(-5px);
       background-color: var(--hover-box-color);
-    }
-
-    ul {
-      padding-left: 18px;
     }
 
     .skills {
@@ -139,6 +140,7 @@
       text-decoration: none;
       margin-top: 10px;
       transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: none;
     }
 
     .button:hover {
@@ -152,6 +154,7 @@
       margin-right: 15px;
       color: var(--accent-color);
       font-size: 1.2rem;
+      cursor: none;
     }
 
     .socials a:hover {
