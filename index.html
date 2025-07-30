@@ -40,8 +40,8 @@
       }
     }
 
-    /* Starfield canvas */
-    #starfield {
+    /* Solar system canvas */
+    #solar-system {
       position: fixed;
       top: 0; left: 0;
       width: 100vw;
@@ -97,7 +97,7 @@
       margin: auto;
       padding: 40px 20px;
       position: relative;
-      z-index: 1; /* above starfield */
+      z-index: 1; /* above background */
     }
 
     h2 {
@@ -200,7 +200,7 @@
   </style>
 </head>
 <body>
-  <canvas id="starfield"></canvas>
+  <canvas id="solar-system"></canvas>
 
   <div id="cursor-circle"></div>
 
@@ -318,18 +318,28 @@
     });
   </script>
 
-  <!-- Starfield Script -->
+  <!-- Solar System Script -->
   <script>
-    const canvas = document.getElementById('starfield');
+    const canvas = document.getElementById('solar-system');
     const ctx = canvas.getContext('2d');
     let width, height;
-    let stars = [];
-    const numStars = 120;
-    const maxDistance = 150;
+    let centerX, centerY;
+    const planets = [
+      { name: 'Mercury', radius: 5, distance: 50, speed: 0.04, angle: 0, color: '#bfbfbf' },
+      { name: 'Venus', radius: 8, distance: 80, speed: 0.025, angle: 0, color: '#d4a373' },
+      { name: 'Earth', radius: 9, distance: 110, speed: 0.02, angle: 0, color: '#4a90e2' },
+      { name: 'Mars', radius: 7, distance: 140, speed: 0.015, angle: 0, color: '#d94a3d' },
+      { name: 'Jupiter', radius: 14, distance: 190, speed: 0.01, angle: 0, color: '#c19a6b' },
+      { name: 'Saturn', radius: 12, distance: 230, speed: 0.008, angle: 0, color: '#d2b48c' },
+      { name: 'Uranus', radius: 10, distance: 270, speed: 0.006, angle: 0, color: '#7fffd4' },
+      { name: 'Neptune', radius: 10, distance: 310, speed: 0.005, angle: 0, color: '#4169e1' }
+    ];
 
     function resize() {
       width = window.innerWidth;
       height = window.innerHeight;
+      centerX = width / 2;
+      centerY = height / 2;
       canvas.width = width * devicePixelRatio;
       canvas.height = height * devicePixelRatio;
       canvas.style.width = width + 'px';
@@ -340,63 +350,59 @@
     window.addEventListener('resize', resize);
     resize();
 
-    function random(min, max) {
-      return Math.random() * (max - min) + min;
+    function drawSun() {
+      const gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 40);
+      gradient.addColorStop(0, '#ffcc00');
+      gradient.addColorStop(1, '#b36b00');
+      ctx.beginPath();
+      ctx.fillStyle = gradient;
+      ctx.shadowColor = '#ffcc00';
+      ctx.shadowBlur = 20;
+      ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    class Star {
-      constructor() {
-        this.x = random(0, width);
-        this.y = random(0, height);
-        this.radius = random(0.5, 1.2);
-        this.alpha = random(0.2, 1);
-        this.alphaDirection = Math.random() > 0.5 ? 1 : -1;
-        this.speedAlpha = random(0.002, 0.008);
-      }
-      update() {
-        this.alpha += this.speedAlpha * this.alphaDirection;
-        if (this.alpha <= 0.2) this.alphaDirection = 1;
-        if (this.alpha >= 1) this.alphaDirection = -1;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(232, 196, 196, ${this.alpha})`;
-        ctx.fill();
-      }
+    function drawOrbit(distance) {
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(232, 196, 196, 0.2)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([5, 10]);
+      ctx.arc(centerX, centerY, distance, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
 
-    for (let i = 0; i < numStars; i++) {
-      stars.push(new Star());
-    }
+    function drawPlanet(planet) {
+      const x = centerX + Math.cos(planet.angle) * planet.distance;
+      const y = centerY + Math.sin(planet.angle) * planet.distance;
 
-    function distance(starA, starB) {
-      return Math.sqrt((starA.x - starB.x) ** 2 + (starA.y - starB.y) ** 2);
-    }
+      // Shadow for glow
+      ctx.shadowColor = planet.color;
+      ctx.shadowBlur = 10;
 
-    function drawLines() {
-      for (let i = 0; i < stars.length; i++) {
-        for (let j = i + 1; j < stars.length; j++) {
-          const dist = distance(stars[i], stars[j]);
-          if (dist < maxDistance) {
-            ctx.strokeStyle = `rgba(232, 196, 196, ${1 - dist / maxDistance})`;
-            ctx.lineWidth = 0.7;
-            ctx.beginPath();
-            ctx.moveTo(stars[i].x, stars[i].y);
-            ctx.lineTo(stars[j].x, stars[j].y);
-            ctx.stroke();
-          }
-        }
-      }
+      ctx.beginPath();
+      ctx.fillStyle = planet.color;
+      ctx.arc(x, y, planet.radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Reset shadow for other drawings
+      ctx.shadowBlur = 0;
     }
 
     function animate() {
       ctx.clearRect(0, 0, width, height);
-      stars.forEach(star => {
-        star.update();
-        star.draw();
+
+      drawSun();
+
+      planets.forEach(planet => {
+        drawOrbit(planet.distance);
       });
-      drawLines();
+
+      planets.forEach(planet => {
+        planet.angle += planet.speed;
+        drawPlanet(planet);
+      });
+
       requestAnimationFrame(animate);
     }
 
