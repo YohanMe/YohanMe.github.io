@@ -7,6 +7,7 @@
 
   <!-- AOS (Animate On Scroll) -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
   <style>
     :root {
@@ -16,7 +17,7 @@
       --background-color: #fafafa;
       --text-color: #1a1a1a;
       --hover-box-color: #f0caca;
-      --button-hover: #861821;
+      --button-hover: #f4b5b5;
     }
 
     body {
@@ -30,23 +31,22 @@
       cursor: none;
     }
 
-    /* Cursor Circle */
+    /* Custom Cursor */
     #cursor-circle {
       position: fixed;
       width: 20px;
       height: 20px;
-      background-color: rgba(165, 28, 48, 0.3);
-      border: 2px solid var(--primary-color);
+      background-color: var(--primary-color);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s ease, height 0.2s ease, transform 0.05s ease, background-color 0.2s ease;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
-    a:hover ~ #cursor-circle,
-    .card:hover ~ #cursor-circle {
-      background-color: rgba(165, 28, 48, 0.15);
+    .hover-effect:hover ~ #cursor-circle {
+      transform: scale(2);
+      background-color: var(--hover-box-color);
     }
 
     .hero {
@@ -143,7 +143,23 @@
 
     .button:hover {
       background-color: var(--button-hover);
-      color: #fff;
+      color: #111;
+    }
+
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 15px;
+      color: var(--accent-color);
+      font-size: 1.2rem;
+    }
+
+    .socials a:hover {
+      color: #700a09;
+    }
+
+    .socials i {
+      margin-right: 6px;
     }
 
     @media (max-width: 768px) {
@@ -166,7 +182,7 @@
     <div class="section" data-aos="fade-up">
       <h2>📌 Experience</h2>
       <div class="grid">
-        <div class="card">
+        <div class="card hover-effect">
           <h3>Data Analyst Intern – First Jewelry Dubai</h3>
           <p><em>Dec 2023 – Feb 2024</em></p>
           <ul>
@@ -176,7 +192,7 @@
             <li>Managed labeling for product categorization.</li>
           </ul>
         </div>
-        <div class="card">
+        <div class="card hover-effect">
           <h3>Fintech Intern – MetLife, Inc Dubai</h3>
           <p><em>Mar 2024 – Sep 2024</em></p>
           <ul>
@@ -186,7 +202,7 @@
             <li>Improved fintech UI with cross-team input.</li>
           </ul>
         </div>
-        <div class="card">
+        <div class="card hover-effect">
           <h3>Founder – Financial Literacy Program</h3>
           <p><em>Oct 2024 – Jan 2025</em></p>
           <ul>
@@ -194,14 +210,14 @@
             <li>Led outreach events in Sharjah, UAE.</li>
           </ul>
         </div>
-        <div class="card">
+        <div class="card hover-effect">
           <h3>Organizer – AI for Economics Symposium</h3>
           <ul>
             <li>Coordinated speakers and topics on AI in economics.</li>
             <li>Handled logistics and public discussion events.</li>
           </ul>
         </div>
-        <div class="card">
+        <div class="card hover-effect">
           <h3>Lead Organizer – Virtual Startup Exchange</h3>
           <ul>
             <li>Hosted global startup pitching events.</li>
@@ -215,13 +231,13 @@
     <div class="section" data-aos="fade-up">
       <h2>💼 Projects</h2>
       <div class="grid">
-        <div class="card">
+        <div class="card hover-effect">
           <h3>Python Quest</h3>
           <p>An educational text-based adventure game to teach Python.</p>
           <p><strong>Tech:</strong> Python, Git, CLI</p>
           <a href="https://github.com/YohanMe/python-quest" target="_blank">View on GitHub →</a>
         </div>
-        <div class="card">
+        <div class="card hover-effect">
           <h3>Budget Tracker</h3>
           <p>Finance tracking app for students with simple data visualization.</p>
           <p><strong>Tech:</strong> Python, SQLite, Matplotlib</p>
@@ -246,15 +262,12 @@
     <!-- Resume -->
     <div class="section" data-aos="fade-up">
       <h2>📄 Resume & Links</h2>
-      <a class="button" href="resume.pdf" download>Download Resume</a>
-      <p style="margin-top: 15px;">LinkedIn: <a href="https://www.linkedin.com/in/yohan-manoj-edapparambil-21b96231b/" target="_blank">linkedin.com/in/yohan-manoj-edapparambil</a></p>
-    </div>
-
-    <!-- Contact -->
-    <div class="section" data-aos="fade-up">
-      <h2>📫 Contact Me</h2>
-      <p>Email: <a href="mailto:yohanmanoj@hotmail.com">yohanmanoj@hotmail.com</a></p>
-      <p>GitHub: <a href="https://github.com/YohanMe" target="_blank">github.com/YohanMe</a></p>
+      <a class="button hover-effect" href="resume.pdf" download>Download Resume</a>
+      <div class="socials" style="margin-top: 20px;">
+        <a href="mailto:yohanmanoj@hotmail.com"><i class="fas fa-envelope"></i>Email</a>
+        <a href="https://github.com/YohanMe" target="_blank"><i class="fab fa-github"></i>GitHub</a>
+        <a href="https://www.linkedin.com/in/yohan-manoj-edapparambil-21b96231b/" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
+      </div>
     </div>
   </div>
 
