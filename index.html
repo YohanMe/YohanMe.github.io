@@ -12,11 +12,11 @@
   <style>
     :root {
       --primary-color: #a51c30;
-      --secondary-color: rgba(46, 26, 26, 0.85);
+      --secondary-color: #2e1a1a;
       --accent-color: #e87c7c;
       --background-color: #1b0b0b;
       --text-color: #f0dede;
-      --hover-box-color: rgba(77, 30, 30, 0.95);
+      --hover-box-color: #4d1e1e;
       --button-hover: #e08b8b;
     }
 
@@ -40,15 +40,6 @@
       }
     }
 
-    #solar-system {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-    }
-
     #cursor-circle {
       position: fixed;
       width: 20px;
@@ -68,18 +59,22 @@
     }
 
     .hero {
-      background: transparent;
+      background: linear-gradient(to right, #2e1a1a, #1b0b0b);
       padding: 80px 20px 60px;
       text-align: center;
-      position: relative;
-      z-index: 10;
     }
 
-    .hero h1, .hero p {
-      background-color: rgba(27, 11, 11, 0.7);
-      padding: 10px;
-      border-radius: 10px;
-      display: inline-block;
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      max-width: 700px;
+      margin: 0 auto;
     }
 
     .container {
@@ -87,7 +82,7 @@
       margin: auto;
       padding: 40px 20px;
       position: relative;
-      z-index: 10;
+      z-index: 1;
     }
 
     h2 {
@@ -129,6 +124,7 @@
     .card:hover {
       transform: translateY(-5px);
       background-color: var(--hover-box-color);
+      color: var(--text-color);
     }
 
     .skills {
@@ -142,6 +138,7 @@
       padding: 8px 14px;
       border-radius: 20px;
       font-size: 14px;
+      color: var(--text-color);
     }
 
     .button {
@@ -167,10 +164,16 @@
       display: inline-flex;
       align-items: center;
       margin-right: 15px;
+      color: var(--accent-color);
       font-size: 1.2rem;
+      cursor: none;
     }
 
-    .socials a i {
+    .socials a:hover {
+      color: #ffbaba;
+    }
+
+    .socials i {
       margin-right: 6px;
     }
 
@@ -182,16 +185,16 @@
   </style>
 </head>
 <body>
-  <canvas id="solar-system"></canvas>
   <div id="cursor-circle"></div>
 
-  <section class="hero">
+  <section class="hero" data-aos="fade">
     <h1>👋 Hi, I'm Yohan</h1>
     <p>I’m a Computer Science major with an Economics minor at <strong>UMass Boston</strong>, passionate about building intuitive, efficient, and impactful software solutions.</p>
   </section>
 
   <div class="container">
-    <div class="section">
+    <!-- Experience -->
+    <div class="section" data-aos="fade-up">
       <h2>📌 Experience</h2>
       <div class="grid">
         <div class="card hover-effect">
@@ -239,7 +242,8 @@
       </div>
     </div>
 
-    <div class="section">
+    <!-- Projects -->
+    <div class="section" data-aos="fade-up">
       <h2>💼 Projects</h2>
       <div class="grid">
         <div class="card hover-effect">
@@ -257,7 +261,8 @@
       </div>
     </div>
 
-    <div class="section">
+    <!-- Skills -->
+    <div class="section" data-aos="fade-up">
       <h2>🧠 Skills</h2>
       <div class="skills">
         <div class="skill">Python</div>
@@ -269,7 +274,8 @@
       </div>
     </div>
 
-    <div class="section">
+    <!-- Resume & Links -->
+    <div class="section" data-aos="fade-up">
       <h2>📄 Resume & Links</h2>
       <a class="button hover-effect" href="resume.pdf" download>Download Resume</a>
       <div class="socials" style="margin-top: 20px;">
@@ -280,52 +286,13 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    const canvas = document.getElementById('solar-system');
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 15, 80);
-    camera.lookAt(0, 0, 0);
-
-    const sun = new THREE.Mesh(
-      new THREE.SphereGeometry(5, 64, 64),
-      new THREE.MeshBasicMaterial({ color: 0xffcc00 })
-    );
-    scene.add(sun);
-
-    const planetColors = [0xbfbfbf, 0xd4a373, 0x4a90e2, 0xd94a3d, 0xc19a6b, 0xd2b48c, 0x7fffd4, 0x4169e1];
-    const planets = [];
-
-    for (let i = 0; i < 8; i++) {
-      const geometry = new THREE.SphereGeometry(1.5 + Math.random(), 32, 32);
-      const material = new THREE.MeshStandardMaterial({ color: planetColors[i] });
-      const planet = new THREE.Mesh(geometry, material);
-      planet.userData = { distance: 10 + i * 10, angle: Math.random() * Math.PI * 2, speed: 0.002 + i * 0.0005 };
-      planets.push(planet);
-      scene.add(planet);
-    }
-
-    const light = new THREE.PointLight(0xffffff, 2, 500);
-    scene.add(light);
-
-    function animate() {
-      requestAnimationFrame(animate);
-      planets.forEach(p => {
-        p.userData.angle += p.userData.speed;
-        p.position.x = Math.cos(p.userData.angle) * p.userData.distance;
-        p.position.z = Math.sin(p.userData.angle) * p.userData.distance;
-        p.position.y = Math.sin(p.userData.angle * 0.5) * 2;
-      });
-      renderer.render(scene, camera);
-    }
-
-    animate();
+    AOS.init({ duration: 800, once: false });
   </script>
+
+  <!-- Cursor Follow Script -->
   <script>
     const cursor = document.getElementById('cursor-circle');
     document.addEventListener('mousemove', e => {
