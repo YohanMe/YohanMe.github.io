@@ -13,8 +13,10 @@
       --primary-color: #a51c30;
       --secondary-color: #f7f7f7;
       --accent-color: #d20000;
-      --background-color: #fff;
+      --background-color: #fafafa;
       --text-color: #1a1a1a;
+      --hover-box-color: #f0caca;
+      --button-hover: #861821;
     }
 
     body {
@@ -22,26 +24,33 @@
       font-family: 'Segoe UI', sans-serif;
       color: var(--text-color);
       scroll-behavior: smooth;
-      background: linear-gradient(to bottom, #ffffff, #f1f1f1);
+      background: linear-gradient(to bottom right, #ffffff, #f3f3f3);
       position: relative;
       overflow-x: hidden;
+      cursor: none;
     }
 
     /* Cursor Circle */
     #cursor-circle {
       position: fixed;
-      width: 15px;
-      height: 15px;
-      background-color: var(--primary-color);
+      width: 20px;
+      height: 20px;
+      background-color: rgba(165, 28, 48, 0.3);
+      border: 2px solid var(--primary-color);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: transform 0.1s ease;
+      transition: width 0.2s ease, height 0.2s ease, transform 0.05s ease, background-color 0.2s ease;
+    }
+
+    a:hover ~ #cursor-circle,
+    .card:hover ~ #cursor-circle {
+      background-color: rgba(165, 28, 48, 0.15);
     }
 
     .hero {
-      background: linear-gradient(to right, #f8f8f8, #ffffff);
+      background: linear-gradient(to right, #fefefe, #f4f4f4);
       padding: 80px 20px 60px;
       text-align: center;
     }
@@ -99,7 +108,7 @@
 
     .card:hover {
       transform: translateY(-5px);
-      background-color: #fff0f0;
+      background-color: var(--hover-box-color);
     }
 
     ul {
@@ -129,11 +138,12 @@
       font-weight: bold;
       text-decoration: none;
       margin-top: 10px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .button:hover {
-      background-color: #700a09;
+      background-color: var(--button-hover);
+      color: #fff;
     }
 
     @media (max-width: 768px) {
