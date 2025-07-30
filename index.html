@@ -2,34 +2,259 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yohan Manoj | Portfolio</title>
+
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
   <style>
-    body, html {
-      margin: 0; overflow: hidden;
-      background-color: #1b0b0b;
-      color: #f0dede;
-      cursor: none;
+    :root {
+      --primary-color: #a51c30;
+      --secondary-color: #2e1a1a;
+      --accent-color: #e87c7c;
+      --background-color: #1b0b0b;
+      --text-color: #f0dede;
+      --hover-box-color: #4d1e1e;
+      --button-hover: #e08b8b;
     }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
+      cursor: none;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+      min-height: 100vh;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
     #threejs-canvas {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
       z-index: -1;
     }
-    /* Your existing CSS for content/cursor goes here... */
+
+    #cursor-circle {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      mix-blend-mode: normal;
+    }
+
+    .hover-effect:hover ~ #cursor-circle,
+    .hover-effect:hover #cursor-circle {
+      transform: scale(2);
+      background-color: var(--hover-box-color);
+      mix-blend-mode: normal;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #2e1a1a, #1b0b0b);
+      padding: 80px 20px 60px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: none;
+    }
+
+    a:hover {
+      color: #ffbaba;
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .card {
+      background-color: var(--secondary-color);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      cursor: none;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background-color: var(--hover-box-color);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill {
+      background-color: #4d1e1e;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      color: var(--text-color);
+    }
+
+    .button {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      cursor: none;
+      box-shadow: 0 0 5px var(--primary-color);
+    }
+
+    .button:hover {
+      background-color: var(--button-hover);
+      color: var(--text-color);
+    }
+
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 15px;
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      cursor: none;
+    }
+
+    .socials a:hover {
+      color: #ffbaba;
+    }
+
+    .socials i {
+      margin-right: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <canvas id="threejs-canvas"></canvas>
+  <div id="cursor-circle"></div>
 
-  <!-- Your portfolio content here (hero, experience, cards, cursor div, etc.) -->
+  <section class="hero" data-aos="fade">
+    <h1>👋 Hi, I'm Yohan</h1>
+    <p>I’m a Computer Science major with an Economics minor at <strong>UMass Boston</strong>, passionate about building intuitive, efficient, and impactful software solutions.</p>
+  </section>
 
-  <!-- Three.js -->
+  <div class="container">
+    <div class="section" data-aos="fade-up">
+      <h2>📌 Experience</h2>
+      <div class="grid">
+        <!-- Experience cards -->
+        <!-- ... Paste your cards here (same structure as before) ... -->
+      </div>
+    </div>
+
+    <div class="section" data-aos="fade-up">
+      <h2>💼 Projects</h2>
+      <div class="grid">
+        <!-- Project cards -->
+        <!-- ... Paste your projects here ... -->
+      </div>
+    </div>
+
+    <div class="section" data-aos="fade-up">
+      <h2>🧠 Skills</h2>
+      <div class="skills">
+        <div class="skill">Python</div>
+        <div class="skill">Git & GitHub</div>
+        <div class="skill">HTML/CSS</div>
+        <div class="skill">SQLite</div>
+        <div class="skill">Command Line</div>
+        <div class="skill">JavaScript (Basic)</div>
+      </div>
+    </div>
+
+    <div class="section" data-aos="fade-up">
+      <h2>📄 Resume & Links</h2>
+      <a class="button hover-effect" href="resume.pdf" download>Download Resume</a>
+      <div class="socials" style="margin-top: 20px;">
+        <a href="mailto:yohanmanoj@hotmail.com"><i class="fas fa-envelope"></i>Email</a>
+        <a href="https://github.com/YohanMe" target="_blank"><i class="fab fa-github"></i>GitHub</a>
+        <a href="https://www.linkedin.com/in/yohan-manoj-edapparambil-21b96231b/" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: false });
+
+    const cursor = document.getElementById('cursor-circle');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/OrbitControls.js"></script>
-
   <script>
     const canvas = document.getElementById('threejs-canvas');
     const scene = new THREE.Scene();
@@ -50,34 +275,27 @@
     scene.add(sunLight);
 
     const loader = new THREE.TextureLoader();
-    const SUN_RADIUS = 30;
-
-    // Sun
     const sunMat = new THREE.MeshBasicMaterial({
-      map: loader.load('https://i.imgur.com/ybLWy3N.jpg') // sun texture
+      map: loader.load('https://i.imgur.com/ybLWy3N.jpg')
     });
-    const sunGeo = new THREE.SphereGeometry(SUN_RADIUS, 32, 32);
+    const sunGeo = new THREE.SphereGeometry(30, 32, 32);
     const sunMesh = new THREE.Mesh(sunGeo, sunMat);
     scene.add(sunMesh);
 
-    // Planets data
     const planets = [
-      { name: 'Mercury', size: 5, dist: 60, speed: 0.02, texture: 'https://i.imgur.com/jWI7xa5.jpg' },
-      { name: 'Venus', size: 8, dist: 85, speed: 0.015, texture: 'https://i.imgur.com/h3zB4Yy.jpg' },
-      { name: 'Earth', size: 9, dist: 110, speed: 0.01, texture: 'https://i.imgur.com/2v1wMUk.jpg' },
-      { name: 'Mars', size: 7, dist: 135, speed: 0.008, texture: 'https://i.imgur.com/zk5SHTy.jpg' },
-      { name: 'Jupiter', size: 14, dist: 175, speed: 0.006, texture: 'https://i.imgur.com/vFRuDjM.jpg' },
-      { name: 'Saturn', size: 12, dist: 210, speed: 0.005, texture: 'https://i.imgur.com/HYyXRgf.jpg' },
-      { name: 'Uranus', size: 10, dist: 245, speed: 0.004, texture: 'https://i.imgur.com/nA4Dd6x.jpg' },
-      { name: 'Neptune', size: 10, dist: 280, speed: 0.003, texture: 'https://i.imgur.com/GWjt0JP.jpg' },
+      { size: 5, dist: 60, speed: 0.02, texture: 'https://i.imgur.com/jWI7xa5.jpg' },
+      { size: 8, dist: 85, speed: 0.015, texture: 'https://i.imgur.com/h3zB4Yy.jpg' },
+      { size: 9, dist: 110, speed: 0.01, texture: 'https://i.imgur.com/2v1wMUk.jpg' },
+      { size: 7, dist: 135, speed: 0.008, texture: 'https://i.imgur.com/zk5SHTy.jpg' },
+      { size: 14, dist: 175, speed: 0.006, texture: 'https://i.imgur.com/vFRuDjM.jpg' },
+      { size: 12, dist: 210, speed: 0.005, texture: 'https://i.imgur.com/HYyXRgf.jpg' },
+      { size: 10, dist: 245, speed: 0.004, texture: 'https://i.imgur.com/nA4Dd6x.jpg' },
+      { size: 10, dist: 280, speed: 0.003, texture: 'https://i.imgur.com/GWjt0JP.jpg' }
     ];
 
     const planetMeshes = [];
-
     planets.forEach(p => {
-      const mat = new THREE.MeshPhongMaterial({
-        map: loader.load(p.texture)
-      });
+      const mat = new THREE.MeshPhongMaterial({ map: loader.load(p.texture) });
       const geo = new THREE.SphereGeometry(p.size, 32, 32);
       const mesh = new THREE.Mesh(geo, mat);
       scene.add(mesh);
@@ -99,7 +317,6 @@
     }
 
     animate();
-
     window.addEventListener('resize', () => {
       const w = window.innerWidth, h = window.innerHeight;
       camera.aspect = w / h;
