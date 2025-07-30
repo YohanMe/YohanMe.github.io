@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yohan Manoj | Portfolio</title>
   <style>
     body {
@@ -11,12 +11,35 @@
       background-color: #0f0f0f;
       color: #f5f5f5;
       line-height: 1.6;
+      padding: 0;
+    }
+
+    header {
+      background-color: #000;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 40px;
+      color: #D4AF37;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
       padding: 40px 20px;
     }
 
-    h1, h2 {
+    h2 {
       color: #D4AF37;
-      margin-bottom: 10px;
+      margin-top: 40px;
     }
 
     a {
@@ -28,19 +51,8 @@
       color: #B8860B;
     }
 
-    .container {
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .section {
-      margin-bottom: 40px;
-    }
-
-    .project {
+    .project, .skill, .contact-info {
       margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #333;
     }
 
     .skills {
@@ -54,58 +66,94 @@
       padding: 8px 14px;
       border-radius: 20px;
       font-size: 14px;
-      color: #f5f5f5;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 5px;
+      background-color: #D4AF37;
+      color: #0f0f0f;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #B8860B;
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: #777;
+      font-size: 14px;
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 20px 15px;
+      header h1 {
+        font-size: 32px;
       }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Yohan Manoj</h1>
+    <p>Computer Science Major & Economics Minor | UMass Boston</p>
+  </header>
+
   <div class="container">
-    <div class="section">
-      <h1>👋 Hi, I'm Yohan</h1>
-      <p>I’m a Computer Science student passionate about software, design, and solving real-world problems through tech.</p>
-    </div>
+    <section>
+      <h2>About Me</h2>
+      <p>I’m a Computer Science major with an Economics minor, passionate about software, design, and solving real-world problems through technology. This portfolio showcases my projects, experience, and contact information.</p>
+    </section>
 
-    <div class="section">
-      <h2>💼 Experience & Projects</h2>
-
+    <section>
+      <h2>Projects</h2>
       <div class="project">
-        <h3>Python Quest</h3>
+        <strong>Python Quest</strong>
         <p>A text-based adventure game that teaches Python through interactive puzzles and storytelling.</p>
-        <p><strong>Tech:</strong> Python, CLI, Git</p>
         <a href="https://github.com/YohanMe/python-quest">View on GitHub →</a>
       </div>
-
       <div class="project">
-        <h3>Budget Tracker</h3>
-        <p>A lightweight finance tool that helps students track spending and savings with simple charts.</p>
-        <p><strong>Tech:</strong> Python, SQLite, Matplotlib</p>
+        <strong>Budget Tracker</strong>
+        <p>A finance tool that helps students track spending and savings with simple charts.</p>
         <a href="https://github.com/YohanMe/budget-tracker">View on GitHub →</a>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>🧠 Skills</h2>
+    <section>
+      <h2>Skills</h2>
       <div class="skills">
         <div class="skill">Python</div>
         <div class="skill">HTML/CSS</div>
         <div class="skill">Git & GitHub</div>
         <div class="skill">SQLite</div>
-        <div class="skill">CLI</div>
         <div class="skill">JavaScript (Basic)</div>
+        <div class="skill">VS Code</div>
       </div>
-    </div>
+    </section>
 
-    <div class="section">
-      <h2>📫 Contact Me</h2>
-      <p>Email: <a href="mailto:yohan@example.com">yohan@example.com</a></p>
-      <p>GitHub: <a href="https://github.com/YohanMe" target="_blank">github.com/YohanMe</a></p>
-    </div>
+    <section>
+      <h2>Resume</h2>
+      <a class="button" href="#" download>Download Resume (Coming Soon)</a>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <div class="contact-info">
+        <p>Email: <a href="mailto:yohanmanoj@hotmail.com">yohanmanoj@hotmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/yohan-manoj-edapparambil-21b96231b/" target="_blank">linkedin.com/in/yohan-manoj-edapparambil</a></p>
+        <p>GitHub: <a href="https://github.com/YohanMe">github.com/YohanMe</a></p>
+      </div>
+    </section>
   </div>
+
+  <footer>
+    &copy; 2025 Yohan Manoj. All rights reserved.
+  </footer>
 </body>
 </html>
