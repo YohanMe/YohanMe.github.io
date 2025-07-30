@@ -102,6 +102,10 @@
       background-color: var(--hover-box-color);
     }
 
+    .skill-category {
+      margin-bottom: 30px;
+    }
+
     .skills {
       display: flex;
       flex-wrap: wrap;
@@ -114,6 +118,15 @@
       border-radius: 20px;
       font-size: 14px;
       color: var(--text-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: scale(1.05);
+      background-color: var(--button-hover);
     }
 
     .button {
@@ -195,6 +208,12 @@
             <li>Improved fintech UI with cross-team input.</li>
           </ul>
         </div>
+      </div>
+    </div>
+
+    <div class="section" data-aos="fade-up">
+      <h2>🎓 Campus Leadership & Initiatives</h2>
+      <div class="grid">
         <div class="card">
           <h3>Founder – Financial Literacy Program</h3>
           <p><em>Oct 2024 – Jan 2025</em></p>
@@ -240,13 +259,41 @@
 
     <div class="section" data-aos="fade-up">
       <h2>🧠 Skills</h2>
-      <div class="skills">
-        <div class="skill">Python</div>
-        <div class="skill">Git & GitHub</div>
-        <div class="skill">HTML/CSS</div>
-        <div class="skill">SQLite</div>
-        <div class="skill">Command Line</div>
-        <div class="skill">JavaScript (Basic)</div>
+
+      <div class="skill-category">
+        <h3>Programming</h3>
+        <div class="skills">
+          <div class="skill"><i class="fab fa-python"></i> Python</div>
+          <div class="skill"><i class="fab fa-js"></i> JavaScript (Basic)</div>
+          <div class="skill">C (Basic)</div>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Web & Tools</h3>
+        <div class="skills">
+          <div class="skill"><i class="fab fa-html5"></i> HTML</div>
+          <div class="skill"><i class="fab fa-css3-alt"></i> CSS</div>
+          <div class="skill"><i class="fab fa-git-alt"></i> Git</div>
+          <div class="skill"><i class="fab fa-github"></i> GitHub</div>
+          <div class="skill"><i class="fas fa-terminal"></i> Command Line</div>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Database & Visualization</h3>
+        <div class="skills">
+          <div class="skill"><i class="fas fa-database"></i> SQLite</div>
+          <div class="skill"><i class="fas fa-chart-line"></i> Matplotlib</div>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <h3>Learning Next</h3>
+        <div class="skills">
+          <div class="skill"><i class="fab fa-react"></i> React</div>
+          <div class="skill"><i class="fab fa-node-js"></i> Node.js</div>
+        </div>
       </div>
     </div>
 
